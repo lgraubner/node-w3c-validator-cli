@@ -26,7 +26,7 @@ c.initialProtocol = "http";
 c.userAgent = "Node/W3C-Validator";
 
 c.on("crawlstart", function() {
-    console.log(chalk.gray("Fetching links..."));
+    console.log(chalk.white("Fetching links..."));
 });
 
 c.on("fetchcomplete", function(item) {
