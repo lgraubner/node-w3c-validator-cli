@@ -33,10 +33,22 @@ c.on("fetchcomplete", function(item) {
     chunk.push(item.url);
 });
 
-c.on("complete", function() {
-    console.log(chalk.white("Done! Validating..."));
+c.on("fetch404", function(item, response) {
+    console.log(chalk.red.bold("Not found:"), chalk.gray(item.url));
+});
 
-    checkURL(chunk);
+c.on("fetcherror", function(item, response) {
+    console.log(chalk.red.bold("Fetch error:"), chalk.gray(item.url));
+});
+
+c.on("complete", function() {
+
+    if (chunk.length > 0) {
+        console.log(chalk.white("Done! Validating..."));
+        checkURL(chunk);
+    } else {
+        console.log(chalk.white("No URLs to validate."));
+    }
 });
 
 var checkURL = function(chunk) {
