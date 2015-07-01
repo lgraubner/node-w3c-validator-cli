@@ -16,6 +16,7 @@ if (!program.args[0]) {
 }
 
 var chunk = [],
+    count = 0,
     valid = 0,
     invalid = 0,
     c = new Crawler(program.args[0]);
@@ -33,17 +34,10 @@ c.on("fetchcomplete", function(item) {
     chunk.push(item.url);
 });
 
-c.on("fetch404", function(item, response) {
-    console.log(chalk.red.bold("Not found:"), chalk.gray(item.url));
-});
-
-c.on("fetcherror", function(item, response) {
-    console.log(chalk.red.bold("Fetch error:"), chalk.gray(item.url));
-});
-
 c.on("complete", function() {
 
     if (chunk.length > 0) {
+        count = chunk.length;
         console.log(chalk.white("Done! Validating..."));
         checkURL(chunk);
     } else {
@@ -68,7 +62,7 @@ var checkURL = function(chunk) {
         if (chunk.length > 0) {
             return checkURL(chunk);
         } else {
-            return console.log(chalk.white("Checked %s sites. %s valid, %s invalid."), c.queue.complete(), valid, invalid);
+            return console.log(chalk.white("Checked %s sites. %s valid, %s invalid."), count, valid, invalid);
         }
     });
 };
@@ -86,7 +80,7 @@ var font = c.addFetchCondition(function(parsedURL) {
 });
 
 var data = c.addFetchCondition(function(parsedURL) {
-    return !parsedURL.path.match(/\.(json|rss|atom|gz|zip|rar|7z)/i);
+    return !parsedURL.path.match(/\.(json|rss|atom|gz|zip|rar|7z|vcf)/i);
 });
 
 var misc = c.addFetchCondition(function(parsedURL) {
