@@ -1,17 +1,16 @@
 {
   "name": "@lgraubner/w3c-validator",
-  "description": "Crawls a given site and checks for W3C validity.",
   "version": "1.0.1",
+  "description": "Crawls a given site and checks for W3C validity.",
   "homepage": "https://github.com/lgraubner/node-w3c-validator",
-  "license": "MIT",
   "author": "Lars Graubner <mail@larsgraubner.de>",
+  "main": "w3c-validator.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/lgraubner/node-w3c-validator.git"
   },
-  "private": true,
-  "engines": {
-    "node": ">=0.10"
+  "bugs": {
+      "url": "https://github.com/lgraubner/node-w3c-validator/issues"
   },
   "dependencies": {
     "simplecrawler": "^0.5.2",
@@ -19,8 +18,9 @@
     "chalk": "^1.0.0",
     "request": "^2.55.0"
   },
+  "preferGlobal": true,
   "bin": {
     "w3c-validator": "w3c-validator.js"
   },
-  "scripts": {}
+  "license": "MIT"
 }
