@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-var Crawler = require("simplecrawler"),
-    fs = require("fs"),
-    program = require("commander"),
-    chalk = require("chalk"),
-    request = require("request"),
-    pkg = require("./package.json");
+var Crawler = require("simplecrawler");
+var fs = require("fs");
+var program = require("commander");
+var chalk = require("chalk");
+var request = require("request");
+var pkg = require("./package.json");
 
 program.version(pkg.version)
         .usage("<url>")
@@ -15,11 +15,11 @@ if (!program.args[0]) {
     program.help();
 }
 
-var chunk = [],
-    count = 0,
-    valid = 0,
-    invalid = 0,
-    c = new Crawler(program.args[0]);
+var chunk = [];
+var count = 0;
+var valid = 0;
+var invalid = 0;
+var c = new Crawler(program.args[0]);
 
 c.initialPath = "/";
 c.initialPort = 80;
