@@ -1,26 +1,40 @@
 {
   "name": "@lgraubner/w3c-validator",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Crawls a given site and checks for W3C validity.",
   "homepage": "https://github.com/lgraubner/node-w3c-validator",
   "author": "Lars Graubner <mail@larsgraubner.de>",
+  "keywords": [
+    "w3c",
+    "validator",
+    "crawler",
+    "check"
+  ],
   "main": "w3c-validator.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/lgraubner/node-w3c-validator.git"
   },
   "bugs": {
-      "url": "https://github.com/lgraubner/node-w3c-validator/issues"
+    "url": "https://github.com/lgraubner/node-w3c-validator/issues"
   },
   "dependencies": {
     "simplecrawler": "^0.5.2",
     "commander": "^2.8.1",
-    "chalk": "^1.0.0",
-    "request": "^2.55.0"
+    "chalk": "^1.1.1",
+    "lodash": "^3.10.1",
+    "cli-spinner": "^0.2.1"
   },
   "preferGlobal": true,
   "bin": {
     "w3c-validator": "w3c-validator.js"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "mocha": "^2.2.5"
+  }
 }

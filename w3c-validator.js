@@ -1,14 +1,16 @@
 #!/usr/bin/env node
 
 var Crawler = require("simplecrawler");
-var fs = require("fs");
 var program = require("commander");
 var chalk = require("chalk");
-var request = require("request");
+var exec = require("child_process").exec;
+var _ = require("lodash");
+var Spinner = require("cli-spinner").Spinner;
 var pkg = require("./package.json");
 
 program.version(pkg.version)
-        .usage("<url>")
+        .usage("[options] <url>")
+        .option("-q, --query", "consider query string")
         .parse(process.argv);
 
 if (!program.args[0]) {
@@ -19,15 +21,32 @@ var chunk = [];
 var count = 0;
 var valid = 0;
 var invalid = 0;
-var c = new Crawler(program.args[0]);
+
+var url = program.args[0].replace(/^(http:\/\/|https:\/\/)/, "");
+var c = new Crawler(url);
 
 c.initialPath = "/";
 c.initialPort = 80;
 c.initialProtocol = "http";
 c.userAgent = "Node/W3C-Validator";
 
+if (!program.query) {
+    c.stripQuerystring = true;
+}
+
+var exclude = ["swf", "pdf", "ps", "dwf", "kml", "kmz", "gpx", "hwp", "ppt", "pptx", "doc", "docx", "odp", "ods", "odt", "rtf", "wri", "svg", "tex", "txt", "text", "wml", "wap", "xml", "gif", "jpg", "jpeg", "png", "ico", "bmp", "ogg", "webp", "mp4", "webm", "mp3", "ttf", "woff", "json", "rss", "atom", "gz", "zip", "rar", "7z", "css", "js", "gzip", "exe"];
+
+var exts = exclude.join("|");
+var regex = new RegExp("\.(" + exts + ")", "i");
+
+c.addFetchCondition(function(parsedURL) {
+    return !parsedURL.path.match(regex);
+});
+
+var spinner = new Spinner("Fetching links... %s");
+
 c.on("crawlstart", function() {
-    console.log(chalk.white("Fetching links..."));
+    spinner.start();
 });
 
 c.on("fetchcomplete", function(item) {
@@ -35,60 +54,39 @@ c.on("fetchcomplete", function(item) {
 });
 
 c.on("complete", function() {
+    spinner.stop(true);
+    count = chunk.length;
 
-    if (chunk.length > 0) {
-        count = chunk.length;
-        console.log(chalk.white("Done! Validating..."));
+    if (!_.isEmpty(chunk)) {
+        console.log(chalk.white("Validating..."));
         checkURL(chunk);
     } else {
-        console.log(chalk.white("No URLs to validate."));
+        console.error(chalk.red.bold("Error: Site '" + program.args[0] + "' could not be found."));
+        process.exit(1);
     }
 });
 
 var checkURL = function(chunk) {
     var url = chunk.pop();
 
-    request.head("http://validator.w3.org/check?uri=" + encodeURIComponent(url)).on("response", function(response) {
-        var status = response.caseless.dict["x-w3c-validator-status"];
+    var child = exec("java -jar ./vnu/vnu.jar --format json " + url, function(error, stdout, stderr) {
+        var result = JSON.parse(stderr);
 
-        if (status == "Valid") {
+        if (_.isEmpty(result.messages)) {
             valid++;
             console.log(chalk.bold.green("✓"), chalk.gray(url));
         } else {
             invalid++;
-            console.log(chalk.red("×", url));
+            console.log(chalk.red.bold("×", url));
         }
 
-        if (chunk.length > 0) {
-            return checkURL(chunk);
+        if (!_.isEmpty(chunk)) {
+            checkURL(chunk);
         } else {
-            return console.log(chalk.white("Checked %s sites. %s valid, %s invalid."), count, valid, invalid);
+            console.log(chalk.white("Checked %s sites. %s valid, %s invalid."), count, valid, invalid);
+            process.exit();
         }
     });
 };
-
-var image = c.addFetchCondition(function(parsedURL) {
-    return !parsedURL.path.match(/\.(gif|jpg|jpeg|png|ico|bmp)/i);
-});
-
-var media = c.addFetchCondition(function(parsedURL) {
-    return !parsedURL.path.match(/\.(ogg|webp|mp4|webm|mp3)/i);
-});
-
-var font = c.addFetchCondition(function(parsedURL) {
-    return !parsedURL.path.match(/\.(ttf|woff)$/i);
-});
-
-var data = c.addFetchCondition(function(parsedURL) {
-    return !parsedURL.path.match(/\.(json|rss|atom|gz|zip|rar|7z|vcf)/i);
-});
-
-var misc = c.addFetchCondition(function(parsedURL) {
-    return !parsedURL.path.match(/\.(css|js|gzip|exe)/i);
-});
-
-var google = c.addFetchCondition(function(parsedURL) {
-    return !parsedURL.path.match(/\.(swf|pdf|ps|dwf|kml|kmz|gpx|hwp|ppt|pptx|doc|docx|odp|ods|odt|rtf|wri|svg|tex|txt|text|wml|wap|xml)/i);
-});
 
 c.start();
