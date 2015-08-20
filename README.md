@@ -12,7 +12,7 @@ $ npm install -g w3c-validator
 $ w3c-validator [options] <url>
 ```
 
-The crawler will fetch all sites matching folder URLs and certain file extensions. You can include files with `-i ext` or ignore files with `-e ext`.
+The crawler will fetch all sites matching folder URLs and certain file extensions.
 
 **Tip**: Omit the URL protocol, the crawler will detect the right one.
 
