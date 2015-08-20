@@ -25,7 +25,7 @@ describe("$ w3c-validator invalid", function() {
 });
 
 describe("$ w3c-validator abc.xyz", function() {
-    this.timeout(10000);
+    this.timeout(20000);
 
     var _error;
     var _stdout;
