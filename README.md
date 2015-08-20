@@ -1,4 +1,7 @@
 # Node W3C Validator
+
+[![Build Status](https://travis-ci.org/lgraubner/node-w3c-validator.svg)](https://travis-ci.org/lgraubner/node-w3c-validator)
+
 Crawls a given site and checks for W3C validity.
 
 ## Installation
