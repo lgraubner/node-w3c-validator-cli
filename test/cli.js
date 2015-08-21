@@ -24,15 +24,15 @@ describe("$ w3c-validator invalid", function() {
     });
 });
 
-describe("$ w3c-validator -n www.google.de", function() {
-    this.timeout(60000);
+describe("$ w3c-validator -n www.whatsmyip.org", function() {
+    this.timeout(120000);
 
     var _error;
     var _stdout;
     var _stderr;
 
     before(function(done) {
-        var cmd = exec("node w3c-validator.js -n https://www.google.de", function(error, stdout, stderr) {
+        var cmd = exec("node w3c-validator.js -n http://www.whatsmyip.org", function(error, stdout, stderr) {
             _error = error;
             _stdout = stdout;
             _stderr = stderr;
@@ -49,15 +49,15 @@ describe("$ w3c-validator -n www.google.de", function() {
     });
 });
 
-describe("$ w3c-validator -n https://www.google.de", function() {
-    this.timeout(60000);
+describe("$ w3c-validator -n http://www.whatsmyip.org", function() {
+    this.timeout(120000);
 
     var _error;
     var _stdout;
     var _stderr;
 
     before(function(done) {
-        var cmd = exec("node w3c-validator.js -n https://www.google.de", function(error, stdout, stderr) {
+        var cmd = exec("node w3c-validator.js -n http://www.whatsmyip.org", function(error, stdout, stderr) {
             _error = error;
             _stdout = stdout;
             _stderr = stderr;
@@ -70,15 +70,15 @@ describe("$ w3c-validator -n https://www.google.de", function() {
     });
 });
 
-describe("$ w3c-validator -n https://www.google.de/intl/de/about/", function() {
-    this.timeout(60000);
+describe("$ w3c-validator -n http://www.whatsmyip.org/contact/", function() {
+    this.timeout(120000);
 
     var _error;
     var _stdout;
     var _stderr;
 
     before(function(done) {
-        var cmd = exec("node w3c-validator.js -n https://www.google.de/intl/de/about/", function(error, stdout, stderr) {
+        var cmd = exec("node w3c-validator.js -n http://www.whatsmyip.org/contact/", function(error, stdout, stderr) {
             _error = error;
             _stdout = stdout;
             _stderr = stderr;
