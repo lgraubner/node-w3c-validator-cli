@@ -27,9 +27,10 @@ $ w3c-validator --help
 
   Options:
 
-    -h, --help     output usage information
-    -V, --version  output the version number
-    -q, --query    consider query string
+    -h, --help      output usage information
+    -V, --version   output the version number
+    -q, --query     consider query string
+    -n, --nofollow  validate single URL
 ```
 
 **Important**: Executing the w3c-validator with sites using HTML `base`-tag along with links *without* leading slashes will probably not work.

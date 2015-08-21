@@ -13,6 +13,7 @@ var pkg = require("./package.json");
 program.version(pkg.version)
         .usage("[options] <url>")
         .option("-q, --query", "consider query string")
+        .option("-n, --nofollow", "validate single URL")
         .parse(process.argv);
 
 if (!program.args[0]) {
@@ -40,6 +41,10 @@ require("find-java-home")(function(err, java_home) {
 
         if (!program.query) {
             c.stripQuerystring = true;
+        }
+
+        if (program.nofollow) {
+            c.maxDepth = 1;
         }
 
         var exclude = ["swf", "pdf", "ps", "dwf", "kml", "kmz", "gpx", "hwp", "ppt", "pptx", "doc", "docx", "odp", "ods", "odt", "rtf", "wri", "svg", "tex", "txt", "text", "wml", "wap", "xml", "gif", "jpg", "jpeg", "png", "ico", "bmp", "ogg", "webp", "mp4", "webm", "mp3", "ttf", "woff", "json", "rss", "atom", "gz", "zip", "rar", "7z", "css", "js", "gzip", "exe"];
