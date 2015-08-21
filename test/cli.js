@@ -24,7 +24,7 @@ describe("$ w3c-validator invalid", function() {
     });
 });
 
-describe("$ w3c-validator -n www.whatsmyip.org", function() {
+describe("$ w3c-validator abc.xyz", function() {
     this.timeout(300000);
 
     var _error;
@@ -32,7 +32,7 @@ describe("$ w3c-validator -n www.whatsmyip.org", function() {
     var _stderr;
 
     before(function(done) {
-        var cmd = exec("node w3c-validator.js -n http://www.whatsmyip.org", function(error, stdout, stderr) {
+        var cmd = exec("node w3c-validator.js abc.xyz", function(error, stdout, stderr) {
             _error = error;
             _stdout = stdout;
             _stderr = stderr;
@@ -49,7 +49,7 @@ describe("$ w3c-validator -n www.whatsmyip.org", function() {
     });
 });
 
-describe("$ w3c-validator -n http://www.whatsmyip.org", function() {
+describe("$ w3c-validator https://abc.xyz", function() {
     this.timeout(300000);
 
     var _error;
@@ -57,7 +57,7 @@ describe("$ w3c-validator -n http://www.whatsmyip.org", function() {
     var _stderr;
 
     before(function(done) {
-        var cmd = exec("node w3c-validator.js -n http://www.whatsmyip.org", function(error, stdout, stderr) {
+        var cmd = exec("node w3c-validator.js https://abc.xyz", function(error, stdout, stderr) {
             _error = error;
             _stdout = stdout;
             _stderr = stderr;
@@ -65,28 +65,7 @@ describe("$ w3c-validator -n http://www.whatsmyip.org", function() {
         });
     });
 
-    it("should remove protocol and not throw any errors", function() {
-        should.equal(_error, null);
-    });
-});
-
-describe("$ w3c-validator -n http://www.whatsmyip.org/contact/", function() {
-    this.timeout(300000);
-
-    var _error;
-    var _stdout;
-    var _stderr;
-
-    before(function(done) {
-        var cmd = exec("node w3c-validator.js -n http://www.whatsmyip.org/contact/", function(error, stdout, stderr) {
-            _error = error;
-            _stdout = stdout;
-            _stderr = stderr;
-            done();
-        });
-    });
-
-    it("should work with subsite as starting point", function() {
+    it("should work with protocol and not throw any errors", function() {
         should.equal(_error, null);
     });
 });
