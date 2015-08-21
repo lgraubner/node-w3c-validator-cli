@@ -25,7 +25,7 @@ describe("$ w3c-validator invalid", function() {
 });
 
 describe("$ w3c-validator -n www.whatsmyip.org", function() {
-    this.timeout(120000);
+    this.timeout(300000);
 
     var _error;
     var _stdout;
@@ -50,7 +50,7 @@ describe("$ w3c-validator -n www.whatsmyip.org", function() {
 });
 
 describe("$ w3c-validator -n http://www.whatsmyip.org", function() {
-    this.timeout(120000);
+    this.timeout(300000);
 
     var _error;
     var _stdout;
@@ -71,7 +71,7 @@ describe("$ w3c-validator -n http://www.whatsmyip.org", function() {
 });
 
 describe("$ w3c-validator -n http://www.whatsmyip.org/contact/", function() {
-    this.timeout(120000);
+    this.timeout(300000);
 
     var _error;
     var _stdout;
