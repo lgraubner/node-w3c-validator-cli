@@ -16,7 +16,7 @@ describe("$ w3c-validator invalid", function() {
     });
 
     it("should fail because of invalid url", function() {
-        _stderr.should.not.be.empty;
+        _stderr.should.contain("could not be found");
     });
 
     it("should exit with error code '1'", function() {
@@ -24,15 +24,15 @@ describe("$ w3c-validator invalid", function() {
     });
 });
 
-describe("$ w3c-validator abc.xyz", function() {
-    this.timeout(20000);
+describe("$ w3c-validator -n www.google.de", function() {
+    this.timeout(10000);
 
     var _error;
     var _stdout;
     var _stderr;
 
     before(function(done) {
-        var cmd = exec("node w3c-validator.js abc.xyz", function(error, stdout, stderr) {
+        var cmd = exec("node w3c-validator.js -n https://www.google.de", function(error, stdout, stderr) {
             _error = error;
             _stdout = stdout;
             _stderr = stderr;
@@ -41,16 +41,15 @@ describe("$ w3c-validator abc.xyz", function() {
     });
 
     it("should not throw any errors", function() {
-        _stderr.should.be.empty;
         should.equal(_error, null);
     });
 
-    it("should return success message", function() {
+    it("should return data", function() {
         _stdout.should.not.be.empty;
     });
 });
 
-describe("$ w3c-validator http://abc.xyz", function() {
+describe("$ w3c-validator -n https://www.google.de", function() {
     this.timeout(10000);
 
     var _error;
@@ -58,7 +57,7 @@ describe("$ w3c-validator http://abc.xyz", function() {
     var _stderr;
 
     before(function(done) {
-        var cmd = exec("node w3c-validator.js http://abc.xyz", function(error, stdout, stderr) {
+        var cmd = exec("node w3c-validator.js -n https://www.google.de", function(error, stdout, stderr) {
             _error = error;
             _stdout = stdout;
             _stderr = stderr;
@@ -67,12 +66,11 @@ describe("$ w3c-validator http://abc.xyz", function() {
     });
 
     it("should remove protocol and not throw any errors", function() {
-        _stderr.should.be.empty;
         should.equal(_error, null);
     });
 });
 
-describe("$ w3c-validator https://abc.xyz", function() {
+describe("$ w3c-validator -n https://www.google.de/intl/de/about/", function() {
     this.timeout(10000);
 
     var _error;
@@ -80,7 +78,7 @@ describe("$ w3c-validator https://abc.xyz", function() {
     var _stderr;
 
     before(function(done) {
-        var cmd = exec("node w3c-validator.js https://abc.xyz", function(error, stdout, stderr) {
+        var cmd = exec("node w3c-validator.js -n https://www.google.de/intl/de/about/", function(error, stdout, stderr) {
             _error = error;
             _stdout = stdout;
             _stderr = stderr;
@@ -88,8 +86,7 @@ describe("$ w3c-validator https://abc.xyz", function() {
         });
     });
 
-    it("should remove protocol and not throw any errors", function() {
-        _stderr.should.be.empty;
+    it("should work with subsite as starting point", function() {
         should.equal(_error, null);
     });
 });
