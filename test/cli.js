@@ -25,7 +25,7 @@ describe("$ w3c-validator invalid", function() {
 });
 
 describe("$ w3c-validator -n www.google.de", function() {
-    this.timeout(30000);
+    this.timeout(60000);
 
     var _error;
     var _stdout;
@@ -50,7 +50,7 @@ describe("$ w3c-validator -n www.google.de", function() {
 });
 
 describe("$ w3c-validator -n https://www.google.de", function() {
-    this.timeout(30000);
+    this.timeout(60000);
 
     var _error;
     var _stdout;
@@ -71,7 +71,7 @@ describe("$ w3c-validator -n https://www.google.de", function() {
 });
 
 describe("$ w3c-validator -n https://www.google.de/intl/de/about/", function() {
-    this.timeout(30000);
+    this.timeout(60000);
 
     var _error;
     var _stdout;
