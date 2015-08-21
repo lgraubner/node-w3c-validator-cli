@@ -15,6 +15,7 @@ program.version(pkg.version)
         .usage("[options] <url>")
         .option("-q, --query", "consider query string")
         .option("-n, --nofollow", "validate single URL")
+        .option("-v, --verbose", "show error details")
         .parse(process.argv);
 
 if (!program.args[0]) {
@@ -87,16 +88,22 @@ require("find-java-home")(function(err, java_home) {
 
             var vnuPath = path.join(__dirname, "vnu").replace(/\s/g, "\\ ");
             var child = exec("java -jar " + vnuPath + "/vnu.jar --format json " + url, { env: { JAVA_HOME: java_home }}, function(error, stdout, stderr) {
-                var result = JSON.parse(stderr);
+                var errors = JSON.parse(stderr);
 
                 spinner.stop(true);
 
-                if (_.isEmpty(result.messages)) {
+                if (_.isEmpty(errors.messages)) {
                     valid++;
                     console.log(chalk.bold.green("✓"), chalk.gray(url));
                 } else {
                     invalid++;
                     console.log(chalk.red.bold("×", url));
+
+                    if (program.verbose) {
+                        _.forEach(errors.messages, function(m) {
+                            console.log("    Line " + m.lastLine + ":  " + m.message);
+                        });
+                    }
                 }
 
                 if (!_.isEmpty(chunk)) {

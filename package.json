@@ -1,6 +1,6 @@
 {
   "name": "w3c-validator",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Crawls a given site and checks for W3C validity.",
   "homepage": "https://github.com/lgraubner/node-w3c-validator",
   "author": "Lars Graubner <mail@larsgraubner.de>",

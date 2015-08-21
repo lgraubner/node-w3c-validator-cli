@@ -31,6 +31,7 @@ $ w3c-validator --help
     -V, --version   output the version number
     -q, --query     consider query string
     -n, --nofollow  validate single URL
+    -v, --verbose   show error details
 ```
 
 **Important**: Executing the w3c-validator with sites using HTML `base`-tag along with links *without* leading slashes will probably not work.
