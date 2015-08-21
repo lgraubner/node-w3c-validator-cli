@@ -8,6 +8,7 @@ var exec = require("child_process").exec;
 var _ = require("lodash");
 var Spinner = require("cli-spinner").Spinner;
 var findJavaHome = require("find-java-home");
+var URL = require("url-parse");
 var pkg = require("./package.json");
 
 program.version(pkg.version)
@@ -31,12 +32,12 @@ require("find-java-home")(function(err, java_home) {
         var valid = 0;
         var invalid = 0;
 
-        var url = program.args[0].replace(/^(http:\/\/|https:\/\/)/, "");
-        var c = new Crawler(url);
+        var url = new URL(program.args[0]);
+        var c = new Crawler(url.host);
 
-        c.initialPath = "/";
+        c.initialPath = url.pathname || "/";
         c.initialPort = 80;
-        c.initialProtocol = "http";
+        c.initialProtocol = url.protocol.replace(":", "") | "http";
         c.userAgent = "Node/W3C-Validator";
 
         if (!program.query) {

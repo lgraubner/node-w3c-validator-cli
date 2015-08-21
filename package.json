@@ -1,6 +1,6 @@
 {
   "name": "w3c-validator",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Crawls a given site and checks for W3C validity.",
   "homepage": "https://github.com/lgraubner/node-w3c-validator",
   "author": "Lars Graubner <mail@larsgraubner.de>",
@@ -24,7 +24,8 @@
     "chalk": "^1.1.1",
     "lodash": "^3.10.1",
     "cli-spinner": "^0.2.1",
-    "find-java-home": "^0.1.2"
+    "find-java-home": "^0.1.2",
+    "url-parse": "^1.0.2"
   },
   "preferGlobal": true,
   "bin": {
