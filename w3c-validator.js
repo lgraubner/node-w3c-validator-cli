@@ -1,15 +1,17 @@
 #!/usr/bin/env node
 
-var path = require("path");
-var Crawler = require("simplecrawler");
-var program = require("commander");
-var chalk = require("chalk");
-var exec = require("child_process").exec;
-var _ = require("lodash");
-var Spinner = require("cli-spinner").Spinner;
-var findJavaHome = require("find-java-home");
-var URL = require("url-parse");
-var pkg = require("./package.json");
+"use strict";
+
+const path = require("path");
+const Crawler = require("simplecrawler");
+const program = require("commander");
+const chalk = require("chalk");
+const exec = require("child_process").exec;
+const _ = require("lodash");
+const Spinner = require("cli-spinner").Spinner;
+const findJavaHome = require("find-java-home");
+const URL = require("url-parse");
+const pkg = require("./package.json");
 
 program.version(pkg.version)
         .usage("[options] <url>")
@@ -75,7 +77,7 @@ require("find-java-home")(function(err, java_home) {
             if (!_.isEmpty(chunk)) {
                 checkURL(chunk);
             } else {
-                console.error(chalk.red.bold("Error: Site '" + program.args[0] + "' could not be found."));
+                console.error(chalk.red.bold("Error: Site '%s' could not be found."), program.args[0]);
                 process.exit(1);
             }
         });
@@ -83,11 +85,11 @@ require("find-java-home")(function(err, java_home) {
         var checkURL = function(chunk) {
             var url = chunk.pop();
 
-            var spinner = new Spinner("  " + url + " %s");
+            var spinner = new Spinner("  ${url} %s");
             spinner.start();
 
             var vnuPath = path.join(__dirname, "vnu").replace(/\s/g, "\\ ");
-            var child = exec("java -jar " + vnuPath + "/vnu.jar --format json " + url, { env: { JAVA_HOME: java_home }}, function(error, stdout, stderr) {
+            var child = exec(`java -jar ${vnuPath}/vnu.jar --format json ${url}`, { env: { JAVA_HOME: java_home }}, function(error, stdout, stderr) {
                 var errors = JSON.parse(stderr);
 
                 spinner.stop(true);
@@ -101,7 +103,7 @@ require("find-java-home")(function(err, java_home) {
 
                     if (program.verbose) {
                         _.forEach(errors.messages, function(m) {
-                            console.log("    Line " + m.lastLine + ":  " + m.message);
+                            console.log("    Line %s:  %s", m.lastLine, m.message);
                         });
                     }
                 }
