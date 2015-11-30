@@ -19,7 +19,9 @@ The crawler will fetch all sites matching folder URLs and certain file extension
 
 **Tip**: Omit the URL protocol, the crawler will detect the right one.
 
-### Options
+**Important**: Executing the w3c-validator with sites using HTML `base`-tag along with links *without* leading slashes will probably not work.
+
+## Options
 ```BASH
 $ w3c-validator --help
 
@@ -29,9 +31,20 @@ $ w3c-validator --help
 
     -h, --help      output usage information
     -V, --version   output the version number
+    -l, --log       log errors in a text file
     -q, --query     consider query string
-    -n, --nofollow  validate single URL
     -v, --verbose   show error details
 ```
 
-**Important**: Executing the w3c-validator with sites using HTML `base`-tag along with links *without* leading slashes will probably not work.
+
+### log
+
+Create a log file containing all invalid URL's including error details.
+
+### query
+
+Consider URLs with query strings like `http://www.example.com/?foo=bar` as indiviual sites and add them to the sitemap.
+
+### verbose
+
+Output additional error information in the console.
