@@ -72,14 +72,7 @@ describe("$ w3c-validator --log 127.0.0.1", function() {
         });
     });
 
+    // @TODO:
     it("should create a log file");
 
-});
-
-describe("$ w3c-validator --query 127.0.0.1", function() {
-    it("should include links with query parameters");
-});
-
-describe("$ w3c-validator --verbose 127.0.0.1", function() {
-    it("should output additional error information");
 });
