@@ -1,12 +1,15 @@
 {
   "name": "w3c-validator",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Crawls a given site and checks for W3C validity.",
   "homepage": "https://github.com/lgraubner/node-w3c-validator",
   "author": {
     "name": "Lars Graubner",
     "email": "mail@larsgraubner.de",
     "url": "http://larsgraubner.de"
+  },
+  "contributors": {
+      "name": "Guillaume Kulakowski"
   },
   "keywords": [
     "w3c",
