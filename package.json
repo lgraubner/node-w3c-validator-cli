@@ -1,6 +1,6 @@
 {
   "name": "w3c-validator",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Crawls a given site and checks for W3C validity.",
   "homepage": "https://github.com/lgraubner/node-w3c-validator",
   "author": {
@@ -9,7 +9,7 @@
     "url": "http://larsgraubner.de"
   },
   "contributors": {
-      "name": "Guillaume Kulakowski"
+    "name": "Guillaume Kulakowski"
   },
   "keywords": [
     "w3c",
@@ -17,7 +17,7 @@
     "crawler",
     "check"
   ],
-  "main": "lib/W3CValidator.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/lgraubner/node-w3c-validator.git"
@@ -36,18 +36,20 @@
   },
   "preferGlobal": true,
   "engines": {
-    "node": ">=4.0"
+    "node": ">=0.12"
   },
   "bin": {
-    "w3c-validator": "./lib/W3CValidator.js"
+    "w3c-validator": "index.js"
   },
   "license": "MIT",
   "scripts": {
-    "test": "NODE_ENV=development mocha test"
+    "test": "eslint index.js lib/** && NODE_ENV=development mocha test"
   },
   "devDependencies": {
     "chai": "^3.4.1",
-    "mocha": "^2.3.4",
-    "del": "^2.1.0"
+    "del": "^2.1.0",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^3.0.0",
+    "mocha": "^2.3.4"
   }
 }
