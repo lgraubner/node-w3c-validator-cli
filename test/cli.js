@@ -13,7 +13,7 @@ describe('$ w3c-validator invalid', function () {
   var _stderr;
 
   before(function (done) {
-    exec('node ./index.js illegal', function cmd(error, stdout, stderr) {
+    exec('node ./cli.js illegal', function cmd(error, stdout, stderr) {
       _error = error;
       _stderr = stderr;
       done();
@@ -37,7 +37,7 @@ describe('$ w3c-validator 127.0.0.1', function () {
   this.timeout(10000);
 
   before(function (done) {
-    exec('node ./index.js 127.0.0.1', function cmd(error, stdout, stderr) {
+    exec('node ./cli.js 127.0.0.1', function cmd(error, stdout, stderr) {
       _error = error;
       _stdout = stdout;
       _stderr = stderr;
@@ -61,7 +61,7 @@ describe('$ w3c-validator --log 127.0.0.1', function () {
   });
 
   before(function (done) {
-    exec('node ./index.js --log', function cmd() {
+    exec('node ./cli.js --log', function cmd() {
       done();
     });
   });

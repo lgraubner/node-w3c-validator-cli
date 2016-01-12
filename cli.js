@@ -23,7 +23,13 @@ if (!program.args[0]) {
 require('find-java-home')(function (err, java_home) {
   var validator;
   if (!err) {
-    validator = new W3CValidator(program.args[0], java_home);
+    validator = new W3CValidator({
+      url: program.args[0],
+      query: program.query,
+      verbose: program.verbose,
+      log: program.log,
+      max: program.max,
+    }, java_home);
     validator.start();
   } else {
     console.error(chalk.red.bold('Error: Java is required to use w3c-validator!'));

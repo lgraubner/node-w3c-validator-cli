@@ -1,8 +1,8 @@
 {
-  "name": "w3c-validator",
-  "version": "3.2.0",
+  "name": "w3c-validator-cli",
+  "version": "3.3.0",
   "description": "Crawls a given site and checks for W3C validity.",
-  "homepage": "https://github.com/lgraubner/node-w3c-validator",
+  "homepage": "https://github.com/lgraubner/node-w3c-validator-cli",
   "author": {
     "name": "Lars Graubner",
     "email": "mail@larsgraubner.de",
@@ -15,15 +15,16 @@
     "w3c",
     "validator",
     "crawler",
-    "check"
+    "check",
+    "ecosystem:node"
   ],
-  "main": "index.js",
+  "main": "cli.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lgraubner/node-w3c-validator.git"
+    "url": "https://github.com/lgraubner/node-w3c-validator-cli.git"
   },
   "bugs": {
-    "url": "https://github.com/lgraubner/node-w3c-validator/issues"
+    "url": "https://github.com/lgraubner/node-w3c-validator-cli/issues"
   },
   "dependencies": {
     "simplecrawler": "^0.5.4",
@@ -39,11 +40,11 @@
     "node": ">=0.12"
   },
   "bin": {
-    "w3c-validator": "index.js"
+    "w3c-validator": "cli.js"
   },
   "license": "MIT",
   "scripts": {
-    "test": "eslint index.js lib/** && NODE_ENV=development mocha test"
+    "test": "eslint cli.js lib/** && NODE_ENV=development mocha test"
   },
   "devDependencies": {
     "chai": "^3.4.1",
